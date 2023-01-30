@@ -1,10 +1,10 @@
 Stopper:
 
    # Should we stop Pillagers from spawning anywhere? (overwrites Limiter)
-   Enabled: true
+   Enabled: false
 
    # Should we stop Pillager spawning when there is already x amount of Pillagers on the server instead of them all? (Needs stopped to be enabled)
-   Use-Hard-Limit: true
+   Use-Hard-Limit: false
    Hard-Limit-Amount: 45
 
    # Should we ignore Pillager Leaders (Ones with banners) so players can still get the Bad Omen effect?

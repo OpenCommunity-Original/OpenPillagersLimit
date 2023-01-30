@@ -1,6 +1,5 @@
 package org.opencommunity.envel.OpenPillagersLimit.listeners;
 
-import org.opencommunity.envel.OpenPillagersLimit.LimitPillagers;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -10,6 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.opencommunity.envel.OpenPillagersLimit.LimitPillagers;
+
+import java.util.Objects;
 
 public class Stopper implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -19,13 +21,13 @@ public class Stopper implements Listener {
                 if (LimitPillagers.getInstance().getConfig().getBoolean("Stopper.Use-Hard-Limit")) {
                     int pillagerCount = 0;
                     for (World world : Bukkit.getWorlds()) {
-                        pillagerCount += world.getEntitiesByClasses(new Class[] { Pillager.class }).size();
+                        pillagerCount += world.getEntitiesByClasses(new Class[]{Pillager.class}).size();
                     }
                     if (pillagerCount <= LimitPillagers.getInstance().getConfig().getInt("Stopper.Hard-Limit-Amount"))
                         return;
                     event.setCancelled(true);
                 }
-                if (!event.getEntity().getEquipment().getHelmet().getType().equals(Material.AIR) && LimitPillagers.getInstance().getConfig().getBoolean("Stopper.Ignore-Leaders"))
+                if (!Objects.requireNonNull(event.getEntity().getEquipment()).getHelmet().getType().equals(Material.AIR) && LimitPillagers.getInstance().getConfig().getBoolean("Stopper.Ignore-Leaders"))
                     return;
                 if (event.getEntity().getCustomName() != null && LimitPillagers.getInstance().getConfig().getBoolean("Stopper.Ignore-Named"))
                     return;

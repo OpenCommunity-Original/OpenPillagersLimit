@@ -1,5 +1,6 @@
 package org.opencommunity.envel.OpenPillagersLimit;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.opencommunity.envel.OpenPillagersLimit.commands.MainCommand;
 import org.opencommunity.envel.OpenPillagersLimit.listeners.Limiter;
 import org.opencommunity.envel.OpenPillagersLimit.listeners.Patrols;
@@ -8,9 +9,6 @@ import org.opencommunity.envel.OpenPillagersLimit.listeners.Stopper;
 import org.opencommunity.envel.OpenPillagersLimit.utils.RegistrationManager;
 import org.opencommunity.envel.OpenPillagersLimit.utils.StringHelper;
 import org.opencommunity.envel.OpenPillagersLimit.utils.VersionHelper;
-import org.bukkit.command.Command;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class LimitPillagers extends JavaPlugin {
     private static LimitPillagers INSTANCE;
@@ -39,8 +37,8 @@ public class LimitPillagers extends JavaPlugin {
 
     public void onEnable() {
         INSTANCE = this;
-        getRegistrationManager().registerCommands(new Command[] { (Command)new MainCommand() });
-        getRegistrationManager().registerEvents(new Listener[] { (Listener)new Stopper(), (Listener)new Limiter(), (Listener)new Remover(), (Listener)new Patrols() });
+        getRegistrationManager().registerCommands(new MainCommand());
+        getRegistrationManager().registerEvents(new Stopper(), new Limiter(), new Remover(), new Patrols());
         saveDefaultConfig();
     }
 

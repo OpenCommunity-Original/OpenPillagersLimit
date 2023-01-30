@@ -1,54 +1,32 @@
 package org.opencommunity.envel.OpenPillagersLimit.utils;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.opencommunity.envel.OpenPillagersLimit.LimitPillagers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.opencommunity.envel.OpenPillagersLimit.LimitPillagers;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringHelper {
-    public void tellConsole(Level level, String message) {
+    public void tellConsole(String message) {
         message = colorize(message);
         if (!LimitPillagers.getInstance().getVersionHelper().isPaper())
             message = ChatColor.stripColor(message);
-    }
-
-    public void tellConsole(Level level, String... message) {
-        for (String string : message)
-            tellConsole(level, string);
-    }
-
-    public void tellPlayer(Player player, String message) {
-        player.sendMessage(colorize(message));
-    }
-
-    public void tellPlayer(Player player, String... message) {
-        for (String string : message)
-            tellPlayer(player, string);
     }
 
     public void tellPlayer(CommandSender sender, String message) {
         if (sender instanceof Player) {
             sender.sendMessage(colorize(message));
         } else {
-            tellConsole(Level.INFO, message);
+            tellConsole(message);
         }
-    }
-
-    public void tellPlayer(CommandSender sender, String... message) {
-        for (String string : message)
-            tellPlayer(sender, string);
     }
 
     private static final Pattern HEX_REGEX = Pattern.compile("<#([A-Fa-f0-9]){6}>");
 
     public String colorize(String message) {
-        if (message == null || message == "")
+        if (message == null || message.equals(""))
             return message;
         if (LimitPillagers.getInstance().getVersionHelper().getMajorVersionNumber() >= 16) {
             Matcher matcher = HEX_REGEX.matcher(message);
@@ -61,16 +39,5 @@ public class StringHelper {
             }
         }
         return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    public List<String> colorize(List<String> list) {
-        List<String> tempList = new ArrayList<>();
-        for (String string : list)
-            tempList.add(colorize(string));
-        return tempList;
-    }
-
-    public String nanosToMillis(long nanoseconds) {
-        return (new DecimalFormat("0.00")).format(nanoseconds / 1000000.0D);
     }
 }

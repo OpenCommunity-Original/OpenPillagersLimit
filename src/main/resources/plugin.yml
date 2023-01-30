@@ -1,5 +1,5 @@
 name: OpenPillagersLimit
-version: 1.0
+version: ${version}
 main: org.opencommunity.envel.OpenPillagersLimit.LimitPillagers
 author: Envel
-api-version: 1.18
+api-version: 1.19
